@@ -1,0 +1,123 @@
+{
+ "skeleton": "23-joint humanoid (Root, Hips, Spine..Head, L/R Shoulder-Arm-ForeArm-Hand, L/R UpLeg-Leg-Foot-ToeBase); same as *_rigged.glb",
+ "notes": "Clips are animation-only GLBs (no mesh). All generated with inPlace=1. Rotation tracks on 20 joints + Root translation.",
+ "clips": {
+  "RifleRobot@idle": {
+   "varco": "rifle_idle",
+   "dur": 10.7,
+   "use": "loop"
+  },
+  "RifleRobot@shoot": {
+   "varco": "rifle_stand_shoot_1",
+   "dur": 9.83,
+   "use": "once",
+   "fire_peak": 6.35,
+   "note": "lead-in aim ~0-2.7s, recoil near 6.35s"
+  },
+  "RifleRobot@walk": {
+   "varco": "rifle_forward_walk_1",
+   "dur": 4.63,
+   "use": "loop"
+  },
+  "RifleRobot@hit": {
+   "varco": "rifle_hit_forward_1",
+   "dur": 9.97,
+   "use": "once",
+   "play_range": [
+    0,
+    1.2
+   ],
+   "note": "hit reaction peaks at 0.25s, long recovery tail"
+  },
+  "RifleRobot@death": {
+   "varco": "hit_fall",
+   "dur": 1.8,
+   "use": "once_hold_last"
+  },
+  "GrenadeRobot@idle": {
+   "varco": "standing_idle_1",
+   "dur": 8.97,
+   "use": "loop"
+  },
+  "GrenadeRobot@throw": {
+   "varco": "throw_baseball",
+   "dur": 3.4,
+   "use": "once",
+   "release": 2.05
+  },
+  "GrenadeRobot@hit": {
+   "varco": "light_hit_forward",
+   "dur": 1.7,
+   "use": "once"
+  },
+  "GrenadeRobot@death": {
+   "varco": "convulsion_death",
+   "dur": 8.9,
+   "use": "once_hold_last",
+   "play_range": [
+    0,
+    6.2
+   ]
+  },
+  "ShieldRobot@idle": {
+   "varco": "standing_idle_1",
+   "dur": 8.97,
+   "use": "loop"
+  },
+  "ShieldRobot@block": {
+   "varco": "cross_block",
+   "dur": 5.07,
+   "use": "once_hold_last"
+  },
+  "ShieldRobot@walk": {
+   "varco": "forward_walk",
+   "dur": 5.87,
+   "use": "loop"
+  },
+  "ShieldRobot@hit": {
+   "varco": "heavy_hit_forward",
+   "dur": 2.5,
+   "use": "once",
+   "play_range": [
+    0,
+    1.2
+   ],
+   "note": "19 duplicate-time keys (harmless)"
+  },
+  "ShieldRobot@death": {
+   "varco": "hit_fall",
+   "dur": 1.8,
+   "use": "once_hold_last"
+  },
+  "SniperRobot@idle": {
+   "varco": "rifle_aim_idle",
+   "dur": 8.63,
+   "use": "loop_with_crossfade",
+   "note": "end pose differs from start; crossfade or hold"
+  },
+  "SniperRobot@shoot": {
+   "varco": "rifle_stand_shoot_2",
+   "dur": 9.77,
+   "use": "once",
+   "fire_peak": 2.45
+  },
+  "SniperRobot@hit": {
+   "varco": "rifle_hit_forward_2",
+   "dur": 2.17,
+   "use": "once",
+   "play_range": [
+    0,
+    1.05
+   ]
+  },
+  "SniperRobot@death": {
+   "varco": "convulsion_death",
+   "dur": 8.9,
+   "use": "once_hold_last",
+   "play_range": [
+    0,
+    6.2
+   ]
+  }
+ }
+}
