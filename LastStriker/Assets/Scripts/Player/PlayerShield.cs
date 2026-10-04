@@ -29,18 +29,21 @@ public class PlayerShield : MonoBehaviour
 
     void Update()
     {
-        bool held = Keyboard.current != null && Keyboard.current.spaceKey.isPressed;
+        bool held = GameManager.IsPlaying && Keyboard.current != null && Keyboard.current.spaceKey.isPressed;
 
         if (held && !IsShieldActive)
         {
             IsShieldActive = true;
             holdTimer = 0f;
             reloadTriggeredThisHold = false;
+            if (gun != null && AudioManager.Instance != null && gun.CurrentAmmo < gun.magazineSize)
+                AudioManager.Instance.StartReloadSound(ReloadTime);
             OnShieldStateChanged?.Invoke(true);
         }
         else if (!held && IsShieldActive)
         {
             IsShieldActive = false;
+            if (AudioManager.Instance != null) AudioManager.Instance.StopReloadSound();
             OnShieldStateChanged?.Invoke(false);
         }
 

@@ -38,7 +38,7 @@ public class Grenade : MonoBehaviour
         if (viewCamera != null)
         {
             Transform c = viewCamera.transform;
-            targetPos = c.position + c.forward * endDistance + c.up * endHeight;
+            targetPos = GetTargetPos(viewCamera);
         }
         else
         {
@@ -51,6 +51,8 @@ public class Grenade : MonoBehaviour
     {
         if (exploded) return;
         timer += Time.deltaTime;
+        // Keep aiming at the player's current position so a moving rail camera does not bend the path.
+        if (viewCamera != null) targetPos = GetTargetPos(viewCamera);
         float t = Mathf.Clamp01(timer / travelTime);
         Vector3 p = Vector3.Lerp(startPos, targetPos, t) + Vector3.up * Mathf.Sin(t * Mathf.PI) * arcHeight;
         if (keepInView) p = ClampToView(p);
@@ -60,6 +62,12 @@ public class Grenade : MonoBehaviour
         {
             Explode(true);
         }
+    }
+
+    Vector3 GetTargetPos(Camera cam)
+    {
+        Transform c = cam.transform;
+        return c.position + c.forward * endDistance + c.up * endHeight;
     }
 
     Vector3 ClampToView(Vector3 p)

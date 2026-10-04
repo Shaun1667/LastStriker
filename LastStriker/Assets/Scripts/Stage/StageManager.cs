@@ -93,6 +93,6 @@ public class StageManager : MonoBehaviour
 
     void HandleBossDefeated()
     {
-        if (gameManager != null) gameManager.ShowFinalResult("STAGE CLEAR!");
+        if (gameManager != null) gameManager.ShowFinalResult("STAGE CLEAR!", gameManager.stageClearResultDelay);
     }
 }

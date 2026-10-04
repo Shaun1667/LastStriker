@@ -38,7 +38,7 @@ public class PlayerGun : MonoBehaviour
     void Update()
     {
         fireTimer -= Time.deltaTime;
-        bool wantsFire = Mouse.current != null && Mouse.current.leftButton.isPressed;
+        bool wantsFire = GameManager.CanFire && Mouse.current != null && Mouse.current.leftButton.isPressed;
         bool canFire = shield == null || !shield.IsShieldActive;
 
         if (wantsFire && canFire && CurrentAmmo > 0 && fireTimer <= 0f)
@@ -101,6 +101,5 @@ public class PlayerGun : MonoBehaviour
     {
         CurrentAmmo = magazineSize;
         OnAmmoChanged?.Invoke(CurrentAmmo, magazineSize);
-        if (AudioManager.Instance != null) AudioManager.Instance.PlaySfx("reload");
     }
 }

@@ -14,6 +14,11 @@ public class BossController : MonoBehaviour
     public BossSummoner backPackSummoner;
 
     public Renderer coreRenderer;
+    [Header("Core Models (optional)")]
+    [Tooltip("Shown while the core is protected. When both models are assigned they replace the colour tint.")]
+    public GameObject coreProtectedModel;
+    [Tooltip("Shown while the core is exposed and can be damaged.")]
+    public GameObject coreExposedModel;
     public Color coreProtectedColor = new Color(0.2f, 0.2f, 0.2f);
     public Color coreExposedColor = new Color(1f, 0.1f, 0.9f);
 
@@ -32,7 +37,7 @@ public class BossController : MonoBehaviour
     {
         gameObject.SetActive(true);
         core.damageBlocked = true;
-        if (coreRenderer != null) coreRenderer.material.color = coreProtectedColor;
+        SetCoreExposed(false);
         if (backPack != null) backPack.gameObject.SetActive(false);
 
         leftArm.OnDepleted += HandleArmDepleted;
@@ -40,6 +45,17 @@ public class BossController : MonoBehaviour
         core.OnDepleted += HandleCoreDepleted;
 
         if (gameManager != null) gameManager.SetStatusMessage("BOSS APPEARED");
+    }
+
+    void SetCoreExposed(bool exposed)
+    {
+        if (coreProtectedModel != null || coreExposedModel != null)
+        {
+            if (coreProtectedModel != null) coreProtectedModel.SetActive(!exposed);
+            if (coreExposedModel != null) coreExposedModel.SetActive(exposed);
+            return;
+        }
+        if (coreRenderer != null) coreRenderer.material.color = exposed ? coreExposedColor : coreProtectedColor;
     }
 
     void HandleArmDepleted(BossPartHealth part)
@@ -56,7 +72,7 @@ public class BossController : MonoBehaviour
     {
         if (gameManager != null) gameManager.SetStatusMessage("CORE EXPOSED!");
         core.damageBlocked = false;
-        if (coreRenderer != null) coreRenderer.material.color = coreExposedColor;
+        SetCoreExposed(true);
 
         float elapsed = 0f;
         float heavyTimer = heavyAttackDelay;
@@ -83,7 +99,7 @@ public class BossController : MonoBehaviour
         if (core.CurrentHP > 0)
         {
             core.damageBlocked = true;
-            if (coreRenderer != null) coreRenderer.material.color = coreProtectedColor;
+            SetCoreExposed(false);
             StartCoroutine(EnterNextCycle());
         }
     }
